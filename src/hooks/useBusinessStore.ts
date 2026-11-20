@@ -42,7 +42,15 @@ import {
   INITIAL_GATE_PASSES,
   INITIAL_GRN,
 } from '../data/initialData';
-import { requiresApproval, DEFAULT_APPROVAL_THRESHOLDS } from '../utils/businessLogic';
+import {
+  requiresApproval,
+  DEFAULT_APPROVAL_THRESHOLDS,
+} from '../utils/businessLogic';
+import {
+  safeLocalStorageSet,
+  syncCollectionToIndexedDB,
+  loadCollectionFromIndexedDB,
+} from '../utils/imageStorage';
 
 const STORAGE_KEY = 'elite_energy_business_db_v1';
 
@@ -78,8 +86,21 @@ export function useBusinessStore() {
   const [suppliers] = useState<Supplier[]>(INITIAL_SUPPLIERS);
   const [vehicles] = useState<DeliveryVehicle[]>(INITIAL_VEHICLES);
 
-  // Active view context
-  const [currentUser, setCurrentUser] = useState<StaffUser>(INITIAL_STAFF[0]); // Default to Owner
+  // Active view context - remember chosen operator across reloads
+  const [currentUser, setCurrentUser] = useState<StaffUser>(() => {
+    try {
+      const savedId = localStorage.getItem(`${STORAGE_KEY}_current_user_id`);
+      const savedStaff = localStorage.getItem(`${STORAGE_KEY}_staff`);
+      const list: StaffUser[] = savedStaff ? JSON.parse(savedStaff) : INITIAL_STAFF;
+      if (savedId) {
+        const found = list.find((s) => s.id === savedId);
+        if (found) return found;
+      }
+      return list[0] || INITIAL_STAFF[0];
+    } catch {
+      return INITIAL_STAFF[0];
+    }
+  });
   const [activeLocationId, setActiveLocationId] = useState<string>('all'); // 'all' or locationId
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
@@ -215,28 +236,73 @@ export function useBusinessStore() {
     ],
   });
 
-  // Sync state changes to localStorage
+  // Hydrate data from IndexedDB on startup (ensures offline persistence even if localStorage was pruned)
   useEffect(() => {
-    try {
-      localStorage.setItem(`${STORAGE_KEY}_locations`, JSON.stringify(locations));
-      localStorage.setItem(`${STORAGE_KEY}_staff`, JSON.stringify(staff));
-      localStorage.setItem(`${STORAGE_KEY}_storefront`, JSON.stringify(storefrontSettings));
-      localStorage.setItem(`${STORAGE_KEY}_products`, JSON.stringify(products));
-      localStorage.setItem(`${STORAGE_KEY}_sales`, JSON.stringify(sales));
-      localStorage.setItem(`${STORAGE_KEY}_orders`, JSON.stringify(onlineOrders));
-      localStorage.setItem(`${STORAGE_KEY}_transfers`, JSON.stringify(transfers));
-      localStorage.setItem(`${STORAGE_KEY}_projects`, JSON.stringify(projects));
-      localStorage.setItem(`${STORAGE_KEY}_quotations`, JSON.stringify(quotations));
-      localStorage.setItem(`${STORAGE_KEY}_expenses`, JSON.stringify(expenses));
-      localStorage.setItem(`${STORAGE_KEY}_approvals`, JSON.stringify(approvals));
-      localStorage.setItem(`${STORAGE_KEY}_audit`, JSON.stringify(auditLogs));
-      localStorage.setItem(`${STORAGE_KEY}_waybills`, JSON.stringify(waybills));
-      localStorage.setItem(`${STORAGE_KEY}_gatepasses`, JSON.stringify(gatePasses));
-      localStorage.setItem(`${STORAGE_KEY}_grn`, JSON.stringify(goodsReceivedNotes));
-    } catch {
-      // Storage quota or privacy restriction
-    }
-  }, [locations, staff, storefrontSettings, products, sales, onlineOrders, transfers, projects, quotations, expenses, approvals, auditLogs, waybills, gatePasses, goodsReceivedNotes]);
+    let mounted = true;
+    loadCollectionFromIndexedDB<Product>('products').then((idbProducts) => {
+      if (mounted && idbProducts && idbProducts.length > 0) {
+        setProducts((prev) => {
+          // If indexedDB has custom images or a larger/custom catalog, merge/restore
+          const hasCustom = idbProducts.some((p) => p.image?.startsWith('data:') || p.id.startsWith('prod-'));
+          return hasCustom || idbProducts.length > prev.length ? idbProducts : prev;
+        });
+      }
+    }).catch(() => {});
+
+    loadCollectionFromIndexedDB<StaffUser>('staff').then((idbStaff) => {
+      if (mounted && idbStaff && idbStaff.length > 0) {
+        setStaff((prev) => {
+          const hasCustom = idbStaff.some((s) => s.avatar?.startsWith('data:') || s.id.startsWith('usr-'));
+          return hasCustom || idbStaff.length > prev.length ? idbStaff : prev;
+        });
+      }
+    }).catch(() => {});
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // Dual-Layer Sync: Safe localStorage with per-key boundary + IndexedDB high-capacity store
+  useEffect(() => {
+    safeLocalStorageSet(`${STORAGE_KEY}_locations`, JSON.stringify(locations));
+    safeLocalStorageSet(`${STORAGE_KEY}_staff`, JSON.stringify(staff));
+    safeLocalStorageSet(`${STORAGE_KEY}_storefront`, JSON.stringify(storefrontSettings));
+    safeLocalStorageSet(`${STORAGE_KEY}_products`, JSON.stringify(products));
+    safeLocalStorageSet(`${STORAGE_KEY}_sales`, JSON.stringify(sales));
+    safeLocalStorageSet(`${STORAGE_KEY}_orders`, JSON.stringify(onlineOrders));
+    safeLocalStorageSet(`${STORAGE_KEY}_transfers`, JSON.stringify(transfers));
+    safeLocalStorageSet(`${STORAGE_KEY}_projects`, JSON.stringify(projects));
+    safeLocalStorageSet(`${STORAGE_KEY}_quotations`, JSON.stringify(quotations));
+    safeLocalStorageSet(`${STORAGE_KEY}_expenses`, JSON.stringify(expenses));
+    safeLocalStorageSet(`${STORAGE_KEY}_approvals`, JSON.stringify(approvals));
+    safeLocalStorageSet(`${STORAGE_KEY}_audit`, JSON.stringify(auditLogs));
+    safeLocalStorageSet(`${STORAGE_KEY}_waybills`, JSON.stringify(waybills));
+    safeLocalStorageSet(`${STORAGE_KEY}_gatepasses`, JSON.stringify(gatePasses));
+    safeLocalStorageSet(`${STORAGE_KEY}_grn`, JSON.stringify(goodsReceivedNotes));
+    safeLocalStorageSet(`${STORAGE_KEY}_current_user_id`, currentUser.id);
+
+    // Asynchronously mirror high-capacity stores to IndexedDB
+    syncCollectionToIndexedDB('products', products).catch(() => {});
+    syncCollectionToIndexedDB('staff', staff).catch(() => {});
+  }, [
+    locations,
+    staff,
+    storefrontSettings,
+    products,
+    sales,
+    onlineOrders,
+    transfers,
+    projects,
+    quotations,
+    expenses,
+    approvals,
+    auditLogs,
+    waybills,
+    gatePasses,
+    goodsReceivedNotes,
+    currentUser.id,
+  ]);
 
   // Helper to append immutable audit log
   const logAudit = useCallback((action: string, details: string, previousValue?: string, newValue?: string) => {
@@ -257,11 +323,12 @@ export function useBusinessStore() {
     setAuditLogs(prev => [newEntry, ...prev]);
   }, [activeLocationId, currentUser, locations]);
 
-  // Switch employee user (enforces location lock for staff)
+  // Switch employee user (enforces location lock for staff and persists active user)
   const switchUser = useCallback((userId: string) => {
     const selected = staff.find(s => s.id === userId);
     if (!selected) return;
     setCurrentUser(selected);
+    safeLocalStorageSet(`${STORAGE_KEY}_current_user_id`, selected.id);
     if (selected.assignedLocationId !== 'all') {
       setActiveLocationId(selected.assignedLocationId);
     }

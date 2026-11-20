@@ -26,6 +26,7 @@ import {
 import { Product, Location, StaffUser, ProductLocationStock } from '../types';
 import { convertPackagingUnits } from '../utils/businessLogic';
 import { generateBarcodeSvg } from '../utils/barcodeGenerator';
+import { compressImage } from '../utils/imageStorage';
 
 interface ProductsViewProps {
   products: Product[];
@@ -104,23 +105,31 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   const [editMinStock, setEditMinStock] = useState(10);
   const [editImage, setEditImage] = useState<string>('');
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, setter: (url: string) => void) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, setter: (url: string) => void) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Selected image exceeds 5MB. Please choose a smaller photo.');
+    if (file.size > 20 * 1024 * 1024) {
+      alert('Selected image exceeds 20MB. Please choose a smaller photo.');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl) {
-        setter(dataUrl);
+    try {
+      // Automatically compress device/camera photos to ~40KB-70KB
+      const compressed = await compressImage(file, 800, 800, 0.82);
+      if (compressed) {
+        setter(compressed);
       }
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl) {
+          setter(dataUrl);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // Unit conversion tool state

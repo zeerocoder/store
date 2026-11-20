@@ -111,6 +111,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         onSwitchUser={switchUser}
         onSwitchLocation={setViewingLocation}
+        onUpdateStaff={updateStaff}
         pendingApprovalsCount={pendingApprovalsCount}
         onToggleMobileMenu={() => setMobileMenuOpen((prev) => !prev)}
       />

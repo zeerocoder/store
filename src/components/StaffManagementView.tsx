@@ -13,8 +13,24 @@ import {
   X,
   AlertTriangle,
   BadgeCheck,
+  Upload,
+  Camera,
+  RefreshCw,
+  Image as ImageIcon,
+  Clock,
+  Power,
+  Trash2,
 } from 'lucide-react';
 import { StaffUser, StaffRole, Location, ROLE_PRIVILEGES } from '../types';
+import { compressImage } from '../utils/imageStorage';
+
+const DEFAULT_AVATARS = [
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
+];
 
 interface StaffManagementViewProps {
   staff: StaffUser[];
@@ -47,8 +63,40 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
   const [assignedLocationId, setAssignedLocationId] = useState<string>('loc-vi');
   const [department, setDepartment] = useState('Commercial Sales');
   const [phone, setPhone] = useState('+234 ');
+  const [avatar, setAvatar] = useState<string>('');
+  const [avatarUrlInput, setAvatarUrlInput] = useState<string>('');
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const [activeShift, setActiveShift] = useState<boolean>(true);
 
   const canManageStaff = ['owner', 'general_manager'].includes(currentUser.role);
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 20 * 1024 * 1024) {
+      alert('Selected photo exceeds 20MB. Please choose a smaller photo.');
+      return;
+    }
+
+    try {
+      const compressed = await compressImage(file, 400, 400, 0.85);
+      if (compressed) {
+        setAvatar(compressed);
+        setAvatarUrlInput('');
+      }
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl) {
+          setAvatar(dataUrl);
+          setAvatarUrlInput('');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleOpenAdd = () => {
     setName('');
@@ -57,6 +105,10 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
     setAssignedLocationId(locations[0]?.id || 'loc-vi');
     setDepartment('Commercial Operations');
     setPhone('+234 ');
+    setAvatar(DEFAULT_AVATARS[Math.floor(Math.random() * DEFAULT_AVATARS.length)]);
+    setAvatarUrlInput('');
+    setIsActive(true);
+    setActiveShift(true);
     setShowAddModal(true);
   };
 
@@ -73,8 +125,9 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
       assignedLocationId,
       department,
       phone,
-      avatar: `https://images.unsplash.com/photo-${1534528741775 + Math.floor(Math.random() * 5000)}?w=150&auto=format&fit=crop&q=80`,
-      isActive: true,
+      avatar: avatar || DEFAULT_AVATARS[0],
+      isActive,
+      activeShift,
     });
     setShowAddModal(false);
   };
@@ -87,6 +140,10 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
     setAssignedLocationId(user.assignedLocationId);
     setDepartment(user.department);
     setPhone(user.phone);
+    setAvatar(user.avatar);
+    setAvatarUrlInput(user.avatar.startsWith('http') ? user.avatar : '');
+    setIsActive(user.isActive !== false);
+    setActiveShift(user.activeShift !== false);
   };
 
   const handleSaveEdit = () => {
@@ -98,6 +155,9 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
       assignedLocationId,
       department,
       phone,
+      avatar: avatar || editingStaff.avatar,
+      isActive,
+      activeShift,
     });
     setEditingStaff(null);
   };
@@ -348,15 +408,26 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                     </td>
 
                     <td className="py-3.5 px-3 text-center">
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          isActive
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
-                            : 'bg-red-50 text-red-700 border-red-300'
-                        }`}
-                      >
-                        {isActive ? 'Active' : 'Disabled'}
-                      </span>
+                      <div className="flex flex-col items-center gap-1">
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                            isActive
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                              : 'bg-red-50 text-red-700 border-red-300'
+                          }`}
+                        >
+                          {isActive ? 'Active' : 'Disabled'}
+                        </span>
+                        <span
+                          className={`text-[9px] font-semibold px-1.5 py-0.2 rounded-sm ${
+                            user.activeShift !== false
+                              ? 'text-sky-700 bg-sky-50'
+                              : 'text-slate-400 bg-slate-100'
+                          }`}
+                        >
+                          {user.activeShift !== false ? '🟢 On Shift' : '⚪ Off Duty'}
+                        </span>
+                      </div>
                     </td>
 
                     <td className="py-3.5 px-4 text-center">
@@ -373,10 +444,11 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                           <>
                             <button
                               onClick={() => handleOpenEdit(user)}
-                              className="p-1 rounded-md text-slate-400 hover:text-sky-600 hover:bg-slate-100 transition"
-                              title="Edit user details and assigned branch"
+                              className="px-2 py-1 rounded-md bg-sky-50 text-sky-700 hover:bg-sky-100 transition text-[11px] font-semibold flex items-center gap-1"
+                              title="Edit user details, photo, and assigned branch"
                             >
-                              <Edit3 className="w-3.5 h-3.5" />
+                              <Edit3 className="w-3 h-3" />
+                              <span>Edit</span>
                             </button>
                             {isActive && user.role !== 'owner' && (
                               <button
@@ -482,6 +554,100 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
             </div>
 
             <div className="p-4 sm:p-5 space-y-3.5 text-xs flex-1 overflow-y-auto">
+              {/* Avatar Upload & Camera Capture */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <label className="font-bold text-slate-700 uppercase text-[10px]">Staff Avatar & Photo</label>
+                  <span className="text-[10px] text-slate-400 font-mono">Auto-compressed & Persistent</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-3.5">
+                  <div className="relative shrink-0">
+                    <img
+                      src={avatar || DEFAULT_AVATARS[0]}
+                      alt="Avatar Preview"
+                      className="w-16 h-16 rounded-full object-cover border-2 border-sky-400 shadow-sm"
+                    />
+                    <div
+                      className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
+                        isActive ? 'bg-emerald-500' : 'bg-red-500'
+                      }`}
+                      title={isActive ? 'Active Operator' : 'Disabled'}
+                    />
+                  </div>
+
+                  <div className="flex-1 w-full space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-semibold cursor-pointer transition shadow-xs">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload Photo</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleAvatarUpload}
+                        />
+                      </label>
+
+                      <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 text-[11px] font-semibold cursor-pointer transition shadow-xs">
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>Camera</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          capture="user"
+                          className="hidden"
+                          onChange={handleAvatarUpload}
+                        />
+                      </label>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = DEFAULT_AVATARS[Math.floor(Math.random() * DEFAULT_AVATARS.length)];
+                          setAvatar(next);
+                          setAvatarUrlInput('');
+                        }}
+                        className="flex items-center gap-1 px-2 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-[11px] font-medium transition"
+                        title="Pick random default avatar"
+                      >
+                        <RefreshCw className="w-3 h-3 text-slate-500" />
+                        <span>Preset</span>
+                      </button>
+
+                      {avatar && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAvatar(DEFAULT_AVATARS[0]);
+                            setAvatarUrlInput('');
+                          }}
+                          className="px-2 py-1.5 text-[11px] text-red-600 hover:bg-red-50 rounded-md transition"
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        placeholder="Or paste direct image URL (https://...)"
+                        value={avatarUrlInput}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setAvatarUrlInput(val);
+                          if (val.trim().startsWith('http') || val.trim().startsWith('data:')) {
+                            setAvatar(val.trim());
+                          }
+                        }}
+                        className="flex-1 p-1.5 rounded-lg border border-slate-300 bg-white text-[11px] font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label className="font-bold text-slate-700 uppercase text-[10px]">Employee Full Name *</label>
                 <input
@@ -559,6 +725,45 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                   />
                 </div>
               </div>
+
+              {/* Status and Active Shift Controls */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-slate-800 text-[11px]">Account Status</div>
+                    <div className="text-[10px] text-slate-500">Allow login & operations</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsActive(!isActive)}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border transition ${
+                      isActive
+                        ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                        : 'bg-red-100 text-red-800 border-red-300'
+                    }`}
+                  >
+                    {isActive ? 'Active' : 'Disabled'}
+                  </button>
+                </div>
+
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-slate-800 text-[11px]">Shift Attendance</div>
+                    <div className="text-[10px] text-slate-500">Counter / yard shift status</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveShift(!activeShift)}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border transition ${
+                      activeShift
+                        ? 'bg-sky-100 text-sky-800 border-sky-300'
+                        : 'bg-slate-200 text-slate-700 border-slate-300'
+                    }`}
+                  >
+                    {activeShift ? '🟢 On Shift' : '⚪ Off Duty'}
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-end gap-2 text-xs shrink-0">
@@ -588,6 +793,100 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
             </div>
 
             <div className="p-4 sm:p-5 space-y-3.5 text-xs flex-1 overflow-y-auto">
+              {/* Avatar Upload & Camera Capture */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <label className="font-bold text-slate-700 uppercase text-[10px]">Staff Avatar & Photo</label>
+                  <span className="text-[10px] text-slate-400 font-mono">Auto-compressed & Persistent</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-3.5">
+                  <div className="relative shrink-0">
+                    <img
+                      src={avatar || editingStaff.avatar || DEFAULT_AVATARS[0]}
+                      alt={editingStaff.name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-sky-400 shadow-sm"
+                    />
+                    <div
+                      className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
+                        isActive ? 'bg-emerald-500' : 'bg-red-500'
+                      }`}
+                      title={isActive ? 'Active Operator' : 'Disabled'}
+                    />
+                  </div>
+
+                  <div className="flex-1 w-full space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-semibold cursor-pointer transition shadow-xs">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload Photo</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleAvatarUpload}
+                        />
+                      </label>
+
+                      <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 text-[11px] font-semibold cursor-pointer transition shadow-xs">
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>Camera</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          capture="user"
+                          className="hidden"
+                          onChange={handleAvatarUpload}
+                        />
+                      </label>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = DEFAULT_AVATARS[Math.floor(Math.random() * DEFAULT_AVATARS.length)];
+                          setAvatar(next);
+                          setAvatarUrlInput('');
+                        }}
+                        className="flex items-center gap-1 px-2 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-[11px] font-medium transition"
+                        title="Pick random preset avatar"
+                      >
+                        <RefreshCw className="w-3 h-3 text-slate-500" />
+                        <span>Preset</span>
+                      </button>
+
+                      {avatar && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAvatar(DEFAULT_AVATARS[0]);
+                            setAvatarUrlInput('');
+                          }}
+                          className="px-2 py-1.5 text-[11px] text-red-600 hover:bg-red-50 rounded-md transition"
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        placeholder="Or paste direct image URL (https://...)"
+                        value={avatarUrlInput}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setAvatarUrlInput(val);
+                          if (val.trim().startsWith('http') || val.trim().startsWith('data:')) {
+                            setAvatar(val.trim());
+                          }
+                        }}
+                        className="flex-1 p-1.5 rounded-lg border border-slate-300 bg-white text-[11px] font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label className="font-bold text-slate-700 uppercase text-[10px]">Full Name</label>
                 <input
@@ -659,6 +958,45 @@ export const StaffManagementView: React.FC<StaffManagementViewProps> = ({
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full mt-1 p-2 rounded-lg border border-slate-300 bg-white font-mono text-xs"
                   />
+                </div>
+              </div>
+
+              {/* Status and Active Shift Controls */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-slate-800 text-[11px]">Account Status</div>
+                    <div className="text-[10px] text-slate-500">Allow login & operations</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsActive(!isActive)}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border transition ${
+                      isActive
+                        ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                        : 'bg-red-100 text-red-800 border-red-300'
+                    }`}
+                  >
+                    {isActive ? 'Active' : 'Disabled'}
+                  </button>
+                </div>
+
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-slate-800 text-[11px]">Shift Attendance</div>
+                    <div className="text-[10px] text-slate-500">Counter / yard shift status</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveShift(!activeShift)}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border transition ${
+                      activeShift
+                        ? 'bg-sky-100 text-sky-800 border-sky-300'
+                        : 'bg-slate-200 text-slate-700 border-slate-300'
+                    }`}
+                  >
+                    {activeShift ? '🟢 On Shift' : '⚪ Off Duty'}
+                  </button>
                 </div>
               </div>
             </div>
