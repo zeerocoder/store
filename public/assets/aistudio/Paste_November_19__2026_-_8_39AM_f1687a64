@@ -1,0 +1,1723 @@
+# MASTER DEVELOPMENT PROMPT
+# ELITE ENERGY TECHNOLOGY
+## Premium Building Materials Commerce, Inventory & Business Management Platform
+
+### PROJECT DIRECTIVE
+
+Act as a senior product architect, enterprise software engineer, UX/UI designer, financial systems architect, cybersecurity engineer and e-commerce specialist.
+
+Your assignment is to design and build a premium, production-ready building materials commerce and business management application for **Elite Energy Technology**.
+
+This must be a complete commercial software product, not a basic e-commerce template, inventory dashboard or generic POS application.
+
+The platform must combine online commerce, physical store operations, inventory management, barcode technology, financial management, purchasing, sales, staff management, multi-location monitoring and business intelligence.
+
+Study the operational strengths of Odoo, Zoho Inventory and Lightspeed Retail. Use their established capabilities as functional benchmarks. Do not copy their interfaces. Build a simpler, more intuitive and industry-specific experience.
+
+The application should feel like a premium enterprise product while remaining easy enough for an ordinary shop attendant to operate without extensive training.
+
+**Core philosophy: Enterprise capability. Simple experience. Complete business visibility.**
+
+---
+
+# PART 1: BRAND AND PRODUCT IDENTITY
+
+### Company
+Elite Energy Technology
+
+### Product
+Elite Building Materials Business Management Platform.
+
+### Brand positioning
+A complete digital operating system for building materials retailers, wholesalers, distributors and construction suppliers.
+
+### Brand personality
+- Professional.
+- Reliable.
+- Modern.
+- Secure.
+- Efficient.
+- Premium.
+
+### Visual identity
+
+Create a sophisticated visual identity for the application.
+
+Suggested palette:
+- Deep navy blue as the primary brand colour.
+- White as the main interface background.
+- Soft grey for secondary surfaces.
+- A restrained electric blue or teal accent.
+- Green for successful transactions.
+- Amber for warnings.
+- Red for critical alerts.
+
+Use a modern, readable font such as Inter.
+
+Design a professional Elite Energy Technology logo treatment. Keep the company branding visible but understated within the application.
+
+Avoid:
+- Excessive gradients.
+- Oversized cards.
+- Unnecessary animations.
+- Excessive dashboard widgets.
+- Crowded navigation.
+- Long forms.
+- Complicated financial interfaces.
+- Decorative elements that compete with functionality.
+
+The interface must look like a product designed by a top-tier enterprise software design team.
+
+---
+
+# PART 2: BUSINESS MODEL
+
+The software must operate on a one-time purchase model.
+
+### Licence structure
+
+Businesses purchase the software once and receive access according to their licence.
+
+There must be:
+- No monthly software subscription.
+- No compulsory annual software renewal.
+- No recurring software access charge.
+- No hidden recurring platform fee.
+
+The application should support different one-time licence packages.
+
+Suggested packages:
+
+**Starter**
+- One business.
+- One branch.
+- Basic inventory.
+- Product management.
+- Barcode generation.
+- POS.
+- Basic reports.
+
+**Professional**
+- Multiple users.
+- Multiple locations.
+- Advanced inventory.
+- Online storefront.
+- Advanced barcode management.
+- Supplier and customer management.
+- Financial reports.
+- Approvals and activity monitoring.
+
+**Enterprise**
+- Multiple branches and warehouses.
+- Advanced access controls.
+- Centralized management.
+- Advanced reporting.
+- API access.
+- Multi-branch stock transfers.
+- Custom business workflows.
+- Advanced audit and security features.
+
+Licence limits must be configurable by the Elite Energy Technology platform administrator.
+
+Do not implement subscription billing for business access.
+
+Important: distinguish the one-time software licence from external operating costs such as hosting, domain registration, payment processing, messaging and optional maintenance services. These must be disclosed transparently.
+
+---
+
+# PART 3: MULTI-LOCATION AND CENTRALIZED MANAGEMENT
+
+THIS IS A CORE REQUIREMENT.
+
+Build the application as a cloud-connected, multi-user, multi-location platform.
+
+The business owner must be able to monitor and manage business activities from any location with internet access.
+
+For example:
+
+- The owner monitors the business from Lagos.
+- A branch manager operates from Uyo.
+- A cashier processes transactions at the main store.
+- An inventory officer manages stock in a warehouse.
+- An accountant monitors payments from another location.
+
+All authorized users should work on the same connected business environment.
+
+### Centralized business dashboard
+
+The owner should see:
+
+- Total revenue across all branches.
+- Today's sales.
+- Sales by branch.
+- Total stock across locations.
+- Stock value.
+- Products running low.
+- Outstanding customer payments.
+- Supplier liabilities.
+- Branch expenses.
+- Profit performance.
+- Recent transactions.
+- Staff activities.
+- Pending approvals.
+
+Allow the owner to switch between:
+
+1. All locations.
+2. Individual branches.
+3. Individual warehouses.
+4. Specific business departments.
+
+### Real-time synchronization
+
+When an authorized user records a sale, receives stock, transfers products or updates an order, the change should synchronize across the platform.
+
+The dashboard must reflect the latest confirmed server-side records.
+
+Show:
+- Last synchronization time.
+- Connection status.
+- Pending synchronization.
+- Failed synchronization alerts.
+
+Do not display unsynchronized information as confirmed business records.
+
+### Multi-location structure
+
+Support:
+- Head office.
+- Retail branches.
+- Warehouses.
+- Distribution centres.
+- Temporary storage locations.
+
+Each location must maintain its own inventory, sales, expenses and assigned staff.
+
+The owner must be able to view consolidated business information without losing location-level detail.
+
+---
+
+# PART 4: USER ACCOUNTS AND ACCESS CONTROL
+
+Create a comprehensive user and permission management system.
+
+### User roles
+
+1. Platform Super Administrator.
+2. Business Owner.
+3. Business Administrator.
+4. General Manager.
+5. Branch Manager.
+6. Inventory Manager.
+7. Warehouse Officer.
+8. Cashier.
+9. Sales Representative.
+10. Accountant.
+11. Procurement Officer.
+12. Delivery Personnel.
+13. Customer.
+
+### Permissions
+
+Access should be configurable at:
+- Business level.
+- Branch level.
+- Department level.
+- Feature level.
+- Action level.
+
+For example:
+
+A cashier can process a sale but cannot change product purchase prices.
+
+An inventory officer can receive stock but cannot approve unusual stock adjustments.
+
+A branch manager can view their branch's financial information but cannot access another branch's restricted records.
+
+The owner can view all authorized business records.
+
+### Approval workflows
+
+Require additional authorization for sensitive operations, including:
+
+- Large discounts.
+- Product price changes.
+- Stock adjustments.
+- Stock write-offs.
+- Refunds.
+- Sales cancellations.
+- Supplier payments.
+- Customer credit approvals.
+- Branch transfers.
+
+Allow the business owner to define approval thresholds.
+
+### Staff monitoring
+
+Provide a staff activity centre showing:
+
+- Login and logout times.
+- Sales processed.
+- Products added.
+- Inventory changes.
+- Discounts issued.
+- Refunds processed.
+- Transactions cancelled.
+- Approvals requested.
+- Actions performed.
+
+Track the user, time, location and relevant transaction for every sensitive action.
+
+Do not implement invasive employee surveillance. Monitoring should focus on legitimate business operations and system security.
+
+---
+
+# PART 5: DASHBOARD AND BUSINESS INTELLIGENCE
+
+Create a premium business dashboard.
+
+It should answer the following questions immediately:
+
+- How much did the business sell today?
+- How much money was actually collected?
+- How much profit was generated?
+- Which branch is performing best?
+- Which products are selling fastest?
+- What is running out of stock?
+- How much inventory does the business own?
+- How much do customers owe?
+- How much does the business owe suppliers?
+- Which transactions require attention?
+
+### Dashboard metrics
+
+Include:
+
+- Gross sales.
+- Net sales.
+- Cash collected.
+- Outstanding receivables.
+- Cost of goods sold.
+- Gross profit.
+- Operating expenses.
+- Estimated net operating profit.
+- Inventory valuation.
+- Pending orders.
+- Total customers.
+- Total suppliers.
+
+### Dashboard controls
+
+Allow filtering by:
+- Today.
+- Yesterday.
+- Last seven days.
+- Last 30 days.
+- This month.
+- Previous month.
+- Custom date range.
+- Branch.
+- Warehouse.
+- Salesperson.
+
+### Visual reporting
+
+Use clean, interactive charts for:
+
+- Sales trends.
+- Revenue by branch.
+- Profit trends.
+- Product performance.
+- Inventory movements.
+- Expense categories.
+- Payment methods.
+
+Do not overwhelm users with charts.
+
+Put the most important information first and allow users to drill down into individual transactions.
+
+---
+
+# PART 6: PRODUCT CATALOGUE
+
+Create an advanced product management module.
+
+Every product must support:
+
+- Product name.
+- Internal product ID.
+- SKU.
+- Barcode.
+- Product description.
+- Product images.
+- Category.
+- Subcategory.
+- Manufacturer.
+- Brand.
+- Supplier.
+- Purchase price.
+- Retail price.
+- Wholesale price.
+- Contractor price.
+- Custom price lists.
+- Measurement unit.
+- Packaging information.
+- Minimum stock.
+- Maximum stock.
+- Branch availability.
+- Warehouse location.
+- Product status.
+
+### Product categories
+
+Create default building materials categories:
+
+- Cement.
+- Iron rods.
+- Roofing materials.
+- Blocks.
+- Bricks.
+- Granite.
+- Sharp sand.
+- Paint.
+- Tiles.
+- Plumbing materials.
+- Electrical materials.
+- Doors.
+- Windows.
+- Ceiling materials.
+- Timber.
+- Pipes.
+- Fittings.
+- Nails.
+- Fasteners.
+- Adhesives.
+- Building tools.
+- Safety equipment.
+- Finishing materials.
+
+Allow custom categories.
+
+### Measurement and packaging
+
+This functionality is critical.
+
+Support:
+- Bags.
+- Pieces.
+- Bundles.
+- Cartons.
+- Rolls.
+- Kilograms.
+- Tons.
+- Litres.
+- Metres.
+- Square metres.
+- Cubic metres.
+- Sheets.
+- Pallets.
+- Trips.
+
+Support product conversion between purchasing and selling units.
+
+Example:
+
+A supplier delivers 100 cartons containing 20 individual pieces each.
+
+The system must calculate:
+- 100 cartons received.
+- 2,000 individual pieces available.
+- Sales in individual pieces.
+- Remaining stock in the appropriate units.
+
+All conversions must be configurable and validated.
+
+Never allow fractional or invalid quantities where the product's unit does not support them.
+
+### Product variations
+
+Support different:
+- Sizes.
+- Colours.
+- Thicknesses.
+- Brands.
+- Grades.
+- Packaging types.
+
+Each variation must have its own inventory tracking where appropriate.
+
+---
+
+# PART 7: BARCODE AND PRODUCT IDENTIFICATION ENGINE
+
+Create a dedicated barcode management centre.
+
+This must be a first-class application feature.
+
+### Barcode generation
+
+Support:
+
+- Code 128.
+- EAN-13.
+- UPC-A.
+- QR codes.
+
+Use Code 128 for internal product identifiers by default.
+
+Support existing manufacturer barcodes without replacing them.
+
+Do not create counterfeit manufacturer identifiers or falsely represent internal barcodes as registered retail standards.
+
+### Barcode generator
+
+The interface should allow users to:
+
+1. Search for a product.
+2. Select a product.
+3. Generate a barcode.
+4. Preview the barcode.
+5. Download it.
+6. Print it.
+7. Generate labels in bulk.
+
+### Barcode labels
+
+Each label can contain:
+
+- Business name.
+- Product name.
+- SKU.
+- Barcode.
+- Selling price.
+- Unit of measurement.
+
+Support configurable label dimensions and thermal printing.
+
+### Bulk barcode operations
+
+Allow users to:
+- Generate labels for selected products.
+- Generate labels for newly received stock.
+- Reprint lost labels.
+- Print product category labels.
+- Download bulk labels as PDF.
+
+### Barcode history
+
+Track:
+- Barcode generation.
+- Product association.
+- Changes.
+- Reprints.
+- User responsible.
+
+Prevent accidental duplicate internal barcodes.
+
+---
+
+# PART 8: SMART SCANNING CENTRE
+
+Create a dedicated scanning interface called SCAN & IDENTIFY.
+
+Support:
+
+- Android smartphone cameras.
+- iPhone cameras.
+- Tablet cameras.
+- Desktop webcams.
+- USB barcode scanners.
+- Bluetooth scanners.
+
+### Scanning process
+
+1. User opens the scanner.
+2. Camera permission is requested.
+3. Live scanning window appears.
+4. System identifies the barcode.
+5. Product database is searched.
+6. Matching product is displayed immediately.
+
+### Scan result
+
+Display:
+
+- Product name.
+- Product image.
+- SKU.
+- Barcode.
+- Available quantity.
+- Branch.
+- Warehouse location.
+- Retail price.
+- Wholesale price.
+- Product specifications.
+
+Provide actions:
+- Add to POS.
+- Check stock.
+- Transfer stock.
+- Receive stock.
+- View product history.
+- Edit product, if authorized.
+
+### Unknown barcode
+
+If a barcode is not registered, offer:
+
+- Register new product.
+- Associate with existing product.
+- Save for later identification.
+
+Never automatically create duplicate products from unknown scans.
+
+### Multiple barcode scanning
+
+Allow warehouse personnel to scan multiple products consecutively during stock counting, receiving and picking.
+
+Provide a clear scan confirmation sound or visual feedback.
+
+---
+
+# PART 9: POINT OF SALE
+
+Build a high-performance POS system.
+
+This must be optimized for speed and simplicity.
+
+### POS screen
+
+Use a simple layout:
+
+- Product search.
+- Barcode scanning.
+- Product results.
+- Shopping cart.
+- Customer selection.
+- Payment section.
+- Complete sale button.
+
+### Sales operations
+
+Support:
+- Cash sales.
+- Bank transfers.
+- Card payments.
+- Split payments.
+- Partial payments.
+- Authorized credit sales.
+- Discounts.
+- Bulk pricing.
+- Customer-specific pricing.
+- Returns.
+- Refunds.
+- Sales cancellation with authorization.
+
+### Multiple payment methods
+
+A customer should be able to pay using more than one method.
+
+Example:
+- ₦100,000 cash.
+- ₦150,000 bank transfer.
+- ₦50,000 card.
+
+The system must reconcile the total accurately.
+
+### Receipts
+
+Generate professional receipts with:
+
+- Elite Energy Technology-powered business branding.
+- Store details.
+- Receipt number.
+- Date and time.
+- Cashier.
+- Customer details.
+- Products.
+- Quantities.
+- Prices.
+- Discounts.
+- Amount paid.
+- Outstanding balance.
+- Payment methods.
+
+Support printing, PDF downloads and digital sharing.
+
+---
+
+# PART 10: E-COMMERCE AND ONLINE STOREFRONTS
+
+Create a premium public-facing e-commerce experience.
+
+Each business should have its own online storefront.
+
+Allow the platform to offer an optional central product discovery marketplace in a later phase.
+
+### Storefront features
+
+- Professional homepage.
+- Product categories.
+- Search.
+- Product filters.
+- Product details.
+- Product galleries.
+- Pricing.
+- Availability.
+- Shopping cart.
+- Customer registration.
+- Checkout.
+- Online payments.
+- Order tracking.
+- Order history.
+
+### Bulk ordering
+
+Building materials are often purchased in large quantities.
+
+Allow contractors and companies to:
+
+- Upload material lists.
+- Add multiple products.
+- Specify required quantities.
+- Request quotations.
+- Negotiate pricing through an authorized process.
+- Receive formal quotations.
+- Confirm orders.
+
+### Customer experience
+
+Make checkout simple.
+
+Allow guest checkout where permitted.
+
+Provide clear delivery charges, availability, payment status and estimated delivery information.
+
+Never promise delivery dates that the business has not confirmed.
+
+---
+
+# PART 11: PAYMENT INFRASTRUCTURE
+
+Build secure and reliable payment processing.
+
+Support the Nigerian market first, with architecture that can support international payments later.
+
+### Payment gateways
+
+Integrate:
+
+- Paystack.
+- Flutterwave.
+
+Use official payment APIs and supported checkout methods.
+
+Allow each business to connect its own payment gateway credentials through a secure configuration process.
+
+Where a centralized platform payment arrangement is used, implement proper merchant settlement and reconciliation.
+
+Do not mix funds belonging to different businesses.
+
+### Payment types
+
+- Bank transfer.
+- Debit and credit cards.
+- POS terminal.
+- Cash.
+- Online checkout.
+- Partial payments.
+- Credit payments where authorized.
+
+### Payment security
+
+Implement:
+
+- Server-side payment verification.
+- Webhook signature verification.
+- Idempotency protection.
+- Transaction reference validation.
+- Duplicate payment prevention.
+- Payment reconciliation.
+- Refund tracking.
+- Failed payment handling.
+- Transaction audit history.
+
+A browser redirect or success message must never be treated as sufficient proof of payment.
+
+### Payment dashboard
+
+Show:
+
+- Successful payments.
+- Pending payments.
+- Failed payments.
+- Refunds.
+- Unmatched payments.
+- Gateway transaction references.
+- Settlement status.
+
+Support manual bank transfer confirmation with appropriate staff authorization and supporting transaction references.
+
+Never store raw card numbers, CVVs or payment authentication secrets.
+
+---
+
+# PART 12: PURCHASING AND SUPPLIER MANAGEMENT
+
+Create a complete procurement module.
+
+### Supplier management
+
+Record:
+
+- Supplier name.
+- Contact details.
+- Address.
+- Products supplied.
+- Purchase history.
+- Payment terms.
+- Outstanding balances.
+
+### Purchase orders
+
+Allow users to:
+
+- Create purchase requests.
+- Select suppliers.
+- Add products.
+- Enter quantities.
+- Compare purchase prices.
+- Submit approval requests.
+- Issue purchase orders.
+- Record deliveries.
+- Verify received quantities.
+- Record supplier invoices.
+- Record supplier payments.
+
+### Goods receiving
+
+When stock arrives:
+
+1. Open the relevant purchase order.
+2. Scan or select products.
+3. Confirm received quantities.
+4. Record damaged or missing items.
+5. Confirm the receiving location.
+6. Submit the receipt.
+
+Only confirmed received quantities should enter available inventory.
+
+Support partial deliveries and outstanding purchase quantities.
+
+---
+
+# PART 13: ADVANCED INVENTORY AND WAREHOUSE MANAGEMENT
+
+Implement a reliable inventory engine.
+
+### Inventory functionality
+
+- Real-time stock balances.
+- Stock receiving.
+- Stock issuing.
+- Stock transfers.
+- Stock reservations.
+- Stock adjustments.
+- Physical stock counts.
+- Returns.
+- Damaged goods.
+- Stock write-offs.
+- Reorder alerts.
+- Stock valuation.
+- Inventory aging.
+
+### Warehouse locations
+
+Support:
+- Warehouse.
+- Aisle.
+- Shelf.
+- Rack.
+- Storage zone.
+- Bin.
+
+Allow staff to identify exactly where a product is stored.
+
+### Stock transfer workflow
+
+A transfer should have the following stages:
+
+Requested → Approved → Dispatched → In Transit → Received → Completed.
+
+Stock must not become available at the receiving branch until the receiving process is confirmed.
+
+Track discrepancies between dispatched and received quantities.
+
+### Inventory integrity
+
+Every movement must record:
+- Product.
+- Quantity.
+- Source location.
+- Destination location.
+- Previous balance.
+- New balance.
+- User.
+- Date and time.
+- Reference transaction.
+- Approval status.
+
+Never permit silent inventory changes.
+
+---
+
+# PART 14: CONTRACTOR AND PROJECT MANAGEMENT
+
+Include a dedicated contractor and project purchasing module.
+
+This is an important industry-specific opportunity.
+
+Allow business customers to create projects.
+
+Example:
+A contractor is constructing a residential building and needs materials for different stages.
+
+The contractor should be able to maintain:
+
+- Project name.
+- Project location.
+- Required materials.
+- Estimated quantities.
+- Approved quotations.
+- Orders.
+- Payments.
+- Delivery records.
+- Purchase history.
+
+The business should be able to see how much a contractor has purchased for each project.
+
+Allow customers to request a material quotation from a project list.
+
+---
+
+# PART 15: DELIVERY AND LOGISTICS
+
+Create a delivery management centre.
+
+### Delivery operations
+
+- Create delivery orders.
+- Assign drivers.
+- Assign vehicles.
+- Record delivery addresses.
+- Calculate delivery charges.
+- Track dispatch.
+- Update delivery status.
+- Record proof of delivery.
+
+### Building materials delivery calculations
+
+Support delivery pricing based on:
+
+- Distance.
+- Vehicle type.
+- Weight.
+- Volume.
+- Number of trips.
+- Loading and offloading.
+- Special delivery conditions.
+
+Allow manual pricing adjustments with authorization.
+
+### Delivery tracking
+
+Customers should see:
+
+- Order confirmed.
+- Preparing order.
+- Ready for dispatch.
+- Dispatched.
+- Delivered.
+
+Capture delivery confirmation and supporting evidence.
+
+---
+
+# PART 16: FINANCIAL MANAGEMENT AND ACCOUNTABILITY
+
+Create a proper financial operations module.
+
+### Financial records
+
+Track:
+- Sales.
+- Payments.
+- Cost of goods sold.
+- Gross profit.
+- Operating expenses.
+- Supplier liabilities.
+- Customer receivables.
+- Refunds.
+- Cash balances.
+- Bank balances.
+
+### Expense management
+
+Record:
+- Rent.
+- Salaries.
+- Transportation.
+- Utilities.
+- Maintenance.
+- Marketing.
+- Fuel.
+- Logistics.
+- Other expenses.
+
+### Cash management
+
+Include:
+- Opening balances.
+- Cash received.
+- Cash paid out.
+- Cash transfers.
+- Closing balances.
+- Cash reconciliation.
+
+### Profit calculation
+
+Use accurate accounting logic.
+
+Revenue is not profit.
+
+Calculate gross profit after accounting for cost of goods sold.
+
+Calculate net profit only after the relevant operating expenses and other applicable costs have been accounted for.
+
+Support inventory valuation using configurable accounting methods, with a properly implemented cost-of-goods-sold workflow.
+
+### Financial reports
+
+- Daily sales.
+- Monthly sales.
+- Profit and loss.
+- Cash flow.
+- Inventory valuation.
+- Customer balances.
+- Supplier balances.
+- Expenses.
+- Branch performance.
+- Payment reconciliation.
+
+Allow PDF and Excel exports.
+
+Make financial records traceable to their underlying transactions.
+
+---
+
+# PART 17: NOTIFICATIONS AND BUSINESS ALERTS
+
+Build an intelligent notification centre.
+
+Notify the relevant users about:
+
+- New orders.
+- New quotation requests.
+- Low stock.
+- Out-of-stock products.
+- Stock discrepancies.
+- Pending approvals.
+- Failed payments.
+- Successful payments.
+- Supplier deliveries.
+- Overdue customer payments.
+- Unusual discounts.
+- Refund requests.
+- Branch activities.
+
+Support:
+- In-app notifications.
+- Email notifications.
+- Optional WhatsApp notifications.
+- Optional SMS notifications.
+
+Allow users to choose which notifications they receive.
+
+Avoid sending unnecessary alerts.
+
+---
+
+# PART 18: BUSINESS ANALYTICS AND INTELLIGENCE
+
+Add a dedicated business intelligence section.
+
+The system should help the owner make better purchasing, pricing and sales decisions.
+
+### Analytics
+
+- Best-selling products.
+- Slow-moving inventory.
+- Most profitable products.
+- Product sales by location.
+- Customer purchase patterns.
+- Branch performance.
+- Supplier performance.
+- Staff sales performance.
+- Inventory turnover.
+- Stock aging.
+- Sales seasonality.
+- Reorder recommendations.
+
+### Advanced intelligence
+
+Provide optional AI-assisted insights.
+
+Examples:
+
+- Products likely to run out of stock.
+- Products that have not sold recently.
+- Branches experiencing declining sales.
+- Potential stock discrepancies.
+- Unusual discounts or refunds.
+- Products with changing purchase costs.
+- Suggested reorder quantities.
+
+AI recommendations must be based on actual business data.
+
+Show the reasoning behind recommendations.
+
+Never allow AI to execute sensitive financial or inventory actions without authorization.
+
+---
+
+# PART 19: SECURITY ARCHITECTURE
+
+Security is non-negotiable.
+
+The application will contain valuable commercial, financial, employee and customer information.
+
+Build security into the architecture from the beginning.
+
+### Authentication
+
+Implement:
+- Secure email and password authentication.
+- Email verification.
+- Password reset.
+- Multi-factor authentication.
+- Optional passkeys where supported.
+- Session management.
+- Device management.
+- Login notifications.
+
+### Authorization
+
+Implement:
+- Role-based access control.
+- Branch-level restrictions.
+- Warehouse-level restrictions.
+- Fine-grained permissions.
+- Approval workflows.
+
+### Data protection
+
+- Enforce strict multi-tenant isolation.
+- Use database-level access policies.
+- Encrypt data in transit.
+- Use appropriate encryption at rest.
+- Protect sensitive credentials.
+- Secure file storage.
+- Validate all user inputs.
+- Apply rate limiting.
+- Prevent SQL injection.
+- Prevent cross-site scripting.
+- Protect against cross-site request forgery where relevant.
+- Use secure HTTP headers.
+- Apply secure cookie practices.
+- Protect APIs against unauthorized access.
+
+### Audit trail
+
+Record sensitive actions in an append-only audit log.
+
+Users must not be able to edit or erase their own audit history.
+
+Track:
+- User identity.
+- Action.
+- Timestamp.
+- Branch.
+- Device/session reference.
+- Relevant record.
+- Previous and new values where appropriate.
+- Approval information.
+
+### Backup and recovery
+
+Implement:
+- Automated database backups.
+- Point-in-time recovery where supported.
+- File backup procedures.
+- Recovery testing.
+- Data export.
+- Business data portability.
+
+Define realistic recovery objectives and communicate them clearly.
+
+### Security administration
+
+Provide the platform administrator with:
+
+- Active users.
+- Active sessions.
+- Login history.
+- Failed login attempts.
+- Suspicious activity alerts.
+- Licence status.
+- Business account status.
+- Security event logs.
+
+Do not expose one business's private information to another business or to unauthorized platform staff.
+
+Apply least-privilege access to platform administrators as well.
+
+---
+
+# PART 20: DATA OWNERSHIP AND BUSINESS CONTINUITY
+
+Businesses must be able to access and export their own records.
+
+Provide export options for:
+
+- Products.
+- Customers.
+- Suppliers.
+- Sales.
+- Purchases.
+- Inventory.
+- Financial transactions.
+- Reports.
+
+Use standard formats such as CSV, Excel and PDF.
+
+Provide a documented data recovery and business continuity process.
+
+The business should not lose its records simply because it changes devices or replaces a staff member.
+
+---
+
+# PART 21: MOBILE AND DESKTOP EXPERIENCE
+
+The application must be responsive and optimized for:
+
+- Desktop computers.
+- Laptops.
+- Android smartphones.
+- iPhones.
+- Tablets.
+
+Build it as a Progressive Web App with installable functionality.
+
+### Mobile experience
+
+Mobile users must be able to:
+
+- Monitor business performance.
+- Scan barcodes.
+- Check stock.
+- Process sales.
+- Approve requests.
+- View notifications.
+- Monitor branch activities.
+- View financial summaries.
+
+### Desktop experience
+
+Optimize desktop for:
+- Inventory management.
+- POS.
+- Financial reporting.
+- Procurement.
+- Warehouse management.
+- Administrative operations.
+
+### Offline capability
+
+Implement carefully controlled offline support.
+
+Where possible:
+- Cache essential application resources.
+- Allow offline product lookups.
+- Support queued POS transactions.
+- Record pending operations.
+- Synchronize when internet returns.
+
+Prevent duplicate sales and conflicting stock updates.
+
+Never assume that two offline users can independently sell the same remaining stock without a reconciliation process.
+
+Show users when information is offline or awaiting synchronization.
+
+---
+
+# PART 22: TECHNICAL STACK AND ARCHITECTURE
+
+Use a production-grade architecture.
+
+### Frontend
+
+- Next.js.
+- React.
+- TypeScript.
+- Tailwind CSS.
+- Accessible reusable UI components.
+- Responsive design.
+
+### Backend
+
+- Next.js server-side functions or a dedicated backend service.
+- Supabase PostgreSQL.
+- Supabase Authentication.
+- Supabase Storage.
+- Supabase Row Level Security.
+
+### Realtime
+
+Use Supabase Realtime or a suitable event-driven architecture for:
+- Sales updates.
+- Inventory changes.
+- Notifications.
+- Branch monitoring.
+- Approval status.
+
+Realtime must be used selectively to avoid unnecessary database load.
+
+### Barcode technology
+
+Use a proven barcode scanning and generation library.
+
+Support hardware scanners that operate through keyboard input as well as camera-based scanning.
+
+### Payments
+
+Use official Paystack and Flutterwave integrations.
+
+### Hosting
+
+Use Vercel or an equivalent production hosting provider, with managed database hosting and backup infrastructure.
+
+### Architecture requirements
+
+- Modular codebase.
+- Clear separation of frontend and backend responsibilities.
+- Reusable components.
+- Proper database normalization.
+- Database indexes.
+- Transaction-safe business operations.
+- Secure API endpoints.
+- Error handling.
+- Logging.
+- Monitoring.
+- Automated tests.
+- Documentation.
+
+Use database transactions for operations involving multiple related financial or inventory records.
+
+Use idempotency keys for payment and transaction operations.
+
+Never rely on frontend calculations as the authoritative source of financial or inventory data.
+
+---
+
+# PART 23: DATABASE STRUCTURE
+
+Design the database to support the entire application.
+
+Include at least the following entities:
+
+BUSINESS:
+- businesses
+- business_licences
+- business_settings
+- business_subscriptions (only if needed for optional third-party integrations, never mandatory software access)
+
+USERS:
+- users
+- user_profiles
+- roles
+- permissions
+- user_roles
+- user_sessions
+- user_branch_access
+
+LOCATIONS:
+- branches
+- warehouses
+- warehouse_zones
+- storage_bins
+
+PRODUCTS:
+- products
+- product_categories
+- product_variants
+- product_units
+- product_unit_conversions
+- product_barcodes
+- price_lists
+
+INVENTORY:
+- inventory_balances
+- inventory_movements
+- stock_counts
+- stock_count_items
+- stock_transfers
+- stock_transfer_items
+- stock_adjustments
+- stock_reservations
+
+SALES:
+- sales
+- sale_items
+- sale_payments
+- refunds
+- receipts
+
+PURCHASING:
+- suppliers
+- purchase_orders
+- purchase_order_items
+- goods_receipts
+- supplier_invoices
+- supplier_payments
+
+CUSTOMERS:
+- customers
+- customer_addresses
+- customer_credit_accounts
+- customer_transactions
+
+E-COMMERCE:
+- storefronts
+- shopping_carts
+- cart_items
+- orders
+- order_items
+- quotations
+- quotation_items
+- delivery_orders
+
+FINANCE:
+- accounts
+- financial_transactions
+- expenses
+- expense_categories
+- cash_registers
+- cash_movements
+- payment_reconciliations
+
+SECURITY:
+- audit_logs
+- approval_requests
+- approval_actions
+- security_events
+
+NOTIFICATIONS:
+- notifications
+- notification_preferences
+
+Ensure all relevant records are associated with the correct business and location.
+
+Implement appropriate foreign keys, unique constraints, indexes and Row Level Security policies.
+
+Never use a single shared inventory balance for multiple warehouses.
+
+---
+
+# PART 24: USER EXPERIENCE AND INTERFACE DESIGN
+
+The application must be exceptionally easy to use.
+
+This is more important than making it visually complicated.
+
+### Navigation structure
+
+Main sidebar:
+
+1. Overview.
+2. Products.
+3. Inventory.
+4. Barcode Centre.
+5. Scan Product.
+6. Point of Sale.
+7. Sales.
+8. Purchases.
+9. Suppliers.
+10. Customers.
+11. Online Store.
+12. Quotations.
+13. Deliveries.
+14. Expenses.
+15. Finance.
+16. Reports.
+17. Staff.
+18. Branches.
+19. Notifications.
+20. Settings.
+
+Use contextual navigation to prevent the sidebar from becoming overwhelming.
+
+### Quick actions
+
+Provide prominent shortcuts for:
+
+- New Sale.
+- Add Product.
+- Scan Barcode.
+- Receive Stock.
+- Transfer Stock.
+- New Purchase Order.
+- New Quotation.
+
+### UX standards
+
+- Every page must have one clear primary action.
+- Use plain business language.
+- Provide useful empty states.
+- Include search and filters.
+- Use confirmation dialogs for destructive actions.
+- Provide clear success and error messages.
+- Make forms short and logical.
+- Use progressive disclosure for advanced options.
+- Make important information easy to find.
+- Ensure accessible contrast and keyboard navigation.
+
+Avoid making the user navigate through several screens to complete common tasks.
+
+The application must be usable by someone with basic smartphone and computer knowledge.
+
+---
+
+# PART 25: TESTING AND QUALITY ASSURANCE
+
+Do not declare the application production-ready until the critical workflows have been tested.
+
+### Functional tests
+
+Test:
+
+- Business registration.
+- Licence activation.
+- User invitations.
+- Role permissions.
+- Branch creation.
+- Product creation.
+- Barcode generation.
+- Barcode printing.
+- Barcode scanning.
+- POS transactions.
+- Payment processing.
+- Inventory receiving.
+- Stock transfers.
+- Returns.
+- Refunds.
+- Purchase orders.
+- Quotations.
+- Online orders.
+- Delivery tracking.
+- Financial reports.
+
+### Security tests
+
+Test:
+- Cross-business data isolation.
+- Unauthorized API requests.
+- Role escalation.
+- Payment webhook validation.
+- Session security.
+- Database permissions.
+- Sensitive data exposure.
+- File upload security.
+
+### Multi-user tests
+
+Simulate multiple employees operating at different branches simultaneously.
+
+Test:
+- Concurrent sales.
+- Simultaneous stock updates.
+- Approval workflows.
+- Real-time dashboard synchronization.
+- Stock reservation conflicts.
+- Offline synchronization.
+
+### Performance
+
+Optimize:
+- Dashboard loading.
+- Product searches.
+- Barcode scanning.
+- POS response times.
+- Inventory queries.
+- Report generation.
+
+Use realistic test datasets with thousands of products and substantial transaction history.
+
+### Acceptance criteria
+
+The application must demonstrate that:
+
+1. An owner can monitor all branches remotely.
+2. Staff can access only their authorized information.
+3. A barcode can be generated and printed.
+4. A phone camera can scan a barcode and retrieve the correct product.
+5. An external barcode scanner can operate with the POS.
+6. Multiple branches can maintain independent stock records.
+7. Stock transfers are traceable.
+8. Sales automatically update inventory.
+9. Payments are securely verified.
+10. Reports reflect actual financial records.
+11. Sensitive operations require the correct authorization.
+12. Business data remains isolated.
+13. The application works on mobile and desktop.
+14. A purchased licence does not require monthly renewal.
+15. Business data can be exported and recovered.
+
+---
+
+# PART 26: IMPLEMENTATION ROADMAP
+
+Build the product in carefully controlled phases.
+
+Do not attempt to implement everything simultaneously.
+
+### PHASE 1: PRODUCT FOUNDATION
+- Brand identity.
+- Project architecture.
+- Database design.
+- Authentication.
+- Business registration.
+- Licence management.
+- Multi-tenant isolation.
+- User management.
+- Branch management.
+- Dashboard.
+
+### PHASE 2: PRODUCT AND INVENTORY
+- Product catalogue.
+- Categories.
+- Product variations.
+- Unit conversions.
+- Inventory balances.
+- Stock movement.
+- Supplier management.
+
+### PHASE 3: BARCODE TECHNOLOGY
+- Barcode generator.
+- Barcode printing.
+- Mobile scanning.
+- External scanner support.
+- Product identification.
+- Barcode-based inventory operations.
+
+### PHASE 4: SALES AND FINANCIAL OPERATIONS
+- POS.
+- Payment integration.
+- Receipts.
+- Sales history.
+- Returns.
+- Refunds.
+- Expenses.
+- Cash management.
+
+### PHASE 5: PROCUREMENT AND WAREHOUSE
+- Purchase orders.
+- Goods receiving.
+- Supplier invoices.
+- Stock transfers.
+- Warehouse locations.
+- Approvals.
+
+### PHASE 6: E-COMMERCE
+- Public storefront.
+- Product listings.
+- Customer accounts.
+- Shopping cart.
+- Checkout.
+- Online payments.
+- Order management.
+
+### PHASE 7: ADVANCED BUSINESS MANAGEMENT
+- Quotations.
+- Contractor accounts.
+- Project purchasing.
+- Delivery management.
+- Multi-branch analytics.
+- Financial reporting.
+- Notifications.
+
+### PHASE 8: ADVANCED INTELLIGENCE AND OPTIMIZATION
+- AI business insights.
+- Stock forecasting.
+- Reorder recommendations.
+- Advanced reports.
+- Offline workflows.
+- Performance improvements.
+
+### PHASE 9: SECURITY AND PRODUCTION
+- Full testing.
+- Security audit.
+- Payment verification tests.
+- Database backup and recovery.
+- Performance testing.
+- Mobile testing.
+- Production deployment.
+- Documentation.
+
+---
+
+# FINAL DEVELOPMENT INSTRUCTIONS
+
+Before writing code:
+
+1. Review the entire project structure.
+2. Identify the existing framework and integrations.
+3. Assess whether the architecture can support multi-user, multi-branch operations.
+4. Identify missing functionality.
+5. Create a detailed implementation plan.
+6. Establish the database schema.
+7. Define the core user journeys.
+8. Define the security architecture.
+
+Then implement the application phase by phase.
+
+Do not unnecessarily replace working functionality.
+
+Do not create fake dashboards populated with hardcoded numbers.
+
+Do not use mock data as a substitute for working features.
+
+Do not create buttons that do nothing.
+
+Do not claim payment integration is complete without successful end-to-end testing.
+
+Do not claim barcode scanning works without testing it on actual supported devices.
+
+Do not compromise security for development convenience.
+
+Every major feature must connect to the real database and backend.
+
+Use realistic sample data only in a clearly separated demonstration environment.
+
+Keep the interface consistent throughout the application.
+
+The application should be built for real businesses, real employees, real transactions and real financial accountability.
+
+**FINAL PRODUCT VISION**
+
+Elite Energy Technology should deliver a premium building materials business management platform that allows an owner to control their entire operation from anywhere.
+
+From the moment a product enters the warehouse to the moment it is sold, paid for and delivered, every important business activity should be recorded, traceable and accessible to the right people.
+
+Make it powerful enough for a large distributor, yet simple enough for a small building materials shop.
+
+Build a product that businesses will confidently pay for once and continue using for years.
