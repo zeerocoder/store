@@ -24,7 +24,6 @@ import { ApprovalsView } from './components/ApprovalsView';
 import { AuditTrailView } from './components/AuditTrailView';
 import { LocationsView } from './components/LocationsView';
 import { StaffManagementView } from './components/StaffManagementView';
-import { DemoTourBanner } from './components/DemoTourBanner';
 import { OfflineIndicator } from './components/OfflineIndicator';
 
 export default function App() {
@@ -115,9 +114,6 @@ export default function App() {
         pendingApprovalsCount={pendingApprovalsCount}
         onToggleMobileMenu={() => setMobileMenuOpen((prev) => !prev)}
       />
-
-      {/* Interactive Operational Demo Tour Banner */}
-      <DemoTourBanner onNavigateTab={setActiveTab} />
 
       <div className="flex-1 flex overflow-hidden">
         {/* Internal Operations Sidebar (hidden in standalone Public Storefront mode if desired) */}
